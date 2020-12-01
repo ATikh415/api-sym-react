@@ -49,7 +49,7 @@ class Customer
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read"})
+     * @Groups({"customers_read", "invoices_read"})
      * @Assert\NotBlank(message="L'adresse email est obligatoire")
      * @Assert\Email(message="Le format de l'adresse email est invalide")
      */
@@ -81,7 +81,7 @@ class Customer
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="customers")
-     * @Groups({"customers_read"})
+     * @Groups({"customers_read", "invoices_read"})
      * @Assert\NotBlank(message="L'utilisateur est obligatoire")
      */
     private $users;

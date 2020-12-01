@@ -13,10 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=InvoiceRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  * @ApiResource(
  *     attributes={
- *          "pagination_enabled"=true,
- *          "pagination_items_per_page"=5,
+ *          "pagination_enabled"=false,
+ *          "pagination_items_per_page"=30,
  *          "order": {"sentAt" : "desc"}
  *     },
  *     normalizationContext={
@@ -75,6 +76,13 @@ class Invoice
      * @Assert\Type(type="integer", message="le chronos doit etre numeriaue")
      */
     private $chronos;
+
+    /**
+     * @ORM\PostPersist()
+     */
+    public function setCreatedAtValue(){
+        $this->sentAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

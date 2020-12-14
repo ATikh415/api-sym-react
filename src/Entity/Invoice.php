@@ -49,7 +49,7 @@ class Invoice
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"invoices_read", "customers_read"})
-     * @Assert\NotBlank(message="La date est obligatoire")
+     * @Assert\NotBlank()
      */
     private $sentAt;
 
@@ -77,8 +77,13 @@ class Invoice
      */
     private $chronos;
 
+    public function __construct()
+    {
+        $this->sentAt = new \DateTime();
+    }
+
     /**
-     * @ORM\PostPersist()
+     * @ORM\PrePersist
      */
     public function setCreatedAtValue(){
         $this->sentAt = new \DateTime();

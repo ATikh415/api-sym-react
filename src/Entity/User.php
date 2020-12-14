@@ -63,7 +63,7 @@ class User implements UserInterface
      * @Assert\NotBlank(message="Le prenom est obligatoire")
      * @Assert\Length(
      *      min = 3,
-     *      max = 30,
+     *      max = 255,
      *      minMessage = "Le prenom doit contenir plus de 3 caractere",
      *      maxMessage = "Le prenom doit contenir moin de 255 caractere"
      * )
@@ -76,7 +76,7 @@ class User implements UserInterface
      * @Assert\NotBlank(message="Le nom est obligatoire")
      * @Assert\Length(
      *      min = 3,
-     *      max = 30,
+     *      max = 255,
      *      minMessage = "Le nom de famille doit contenir plus de 3 caractere",
      *      maxMessage = "Le nom de famille doit contenir moin de 255 caractere"
      * )

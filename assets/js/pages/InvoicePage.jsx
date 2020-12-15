@@ -4,8 +4,7 @@ import Field from '../components/form/Field';
 import Select from '../components/form/Select';
 import {FindAll } from '../services/customersApi';
 import { Find, Update, Create } from '../services/InvoicesApi';
-import axios from 'axios';
-
+import { toast } from 'react-toastify';
 
 const Invoice = ({ history, match }) => {
 
@@ -37,11 +36,15 @@ const Invoice = ({ history, match }) => {
         event.preventDefault()
 
         try {
-            if(editing){
+            setErrors({})           
+             if(editing){
                  await Update(id, invoice)
+                 toast.success("La facture a été bien modifiée")
                 
             } else {
-                await Create(invoi)
+                await Create(invoice)
+                toast.success("La facture a été bien créée")
+
                 history.replace("/invoices")
             }
 
@@ -57,6 +60,8 @@ const Invoice = ({ history, match }) => {
             }
             
             setErrors(apiErrors)
+            toast.error("Erreurs sur votre formulaire")
+
         }
     }
 
@@ -69,6 +74,7 @@ const Invoice = ({ history, match }) => {
             if(!invoice.customer) setInvoice({ ...invoice, customer: data[0].id})
 
         } catch (e) {
+            toast.error("Erreurs lors de du chargement des clients")
             history.replace("/invoices")
             //TODO : flash
         }
@@ -81,7 +87,8 @@ const Invoice = ({ history, match }) => {
             const {amount, status, customer} = await Find(id)
             setInvoice({ amount, status, customer: customer.id })
         }catch (e){
-            
+            toast.error("Erreurs lors de du chargement de la  facture demande")
+
            history.replace("/invoices")
         }
     }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Field from '../components/form/Field';
 import { Create, Find, Update } from '../services/customersApi';
 
@@ -50,16 +51,18 @@ const Customer = ({ match, history}) => {
     //Gestion de la soumision du formulaire 
     const handleSubmit = async (event) => {
         event.preventDefault()
+        
+        setError({})
 
         try {
             if(editing){
                 await Update(id, customer)
+                toast.success("Le client a ete bien modifier")
             }else {
                 await Create(customer)
+                toast.success("Le client a ete bien Créer")
                 history.replace("/customers")
             }
-
-            setError({})
 
         } catch ({ response }){
             const apiErrors = {};
@@ -70,6 +73,7 @@ const Customer = ({ match, history}) => {
                     apiErrors[propertyPath] = message
                 })
             }
+            toast.error("Errurs sur le formulaire")
             
             setError(apiErrors)
         }

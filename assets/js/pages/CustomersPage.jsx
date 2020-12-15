@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import TableLoader from '../components/loaders/TableLoader';
 import Pagination from '../components/Pagination';
 import { deleteCustomer, FindAll } from '../services/customersApi';
+
 
 const CustomersPage = (props) => {
 
     const [customers, setCustomers] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [search, setSearch] = useState("")
+    const [loading, setLoading] = useState(true)
 
     //permet d'aller recuperer les customers
     const fetchCustomers = async () => {
         try{
             const data = await FindAll()
             setCustomers(data)
+            setLoading(false)
         }catch (error){
             console.log(error.response)
         }
@@ -34,7 +38,6 @@ const CustomersPage = (props) => {
             await deleteCustomer(id)
         }catch(error) {
             setCustomers(originalCustomers)
-            console.log(response)
         }
         
     }
@@ -92,12 +95,12 @@ const CustomersPage = (props) => {
                          <th className="text-center">Montant total</th>
                      </tr>
                  </thead>
-                 <tbody>
+                {!loading && <tbody>
                      {paginadCustomers.map(customer => 
                          <tr key={customer.id}>
                          <td>{customer.id}</td>
                          <td>
-                            <a href="#">{customer.firstName} {customer.lastName}</a>
+                            <Link to={"/customers/" + customer.id} > {customer.firstname} {customer.lastname}</Link>
                          </td>
                          <td>{customer.email}</td>
                          <td>{ customer.company && customer.company}</td>
@@ -115,9 +118,12 @@ const CustomersPage = (props) => {
                      </tr>
                     )}
                     
-                 </tbody>
+                 </tbody> }
 
              </table>
+
+            { loading && <TableLoader /> }
+
             { itemPerPage < customers.length && (
                 <Pagination 
                     currentPage={currentPage} 

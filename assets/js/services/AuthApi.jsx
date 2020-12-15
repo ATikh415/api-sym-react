@@ -10,7 +10,7 @@ export function Logout(){
 
 export function Authenticate(credentials){
     return axios
-        .post("http://localhost:8000/api/login_check", credentials)
+        .post(LOGIN_API, credentials)
         .then(response => response.data.token)
         .then(token => {
             // Stocker le token dans localStorage

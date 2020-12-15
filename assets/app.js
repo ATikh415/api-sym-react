@@ -20,6 +20,9 @@ import Login from './js/pages/LoginPage';
 import Customer from './js/pages/CustomerPage';
 import Invoice from './js/pages/InvoicePage';
 import Register from './js/pages/RegisterPage';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
@@ -64,7 +67,8 @@ const App = () => {
                 <Route path="/" component={Home} />
             </Switch>
         </main>
-    </HashRouter>;
+        <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
+    </HashRouter >;
 };
 
 ReactDOM.render(<App />, document.querySelector('#app'))

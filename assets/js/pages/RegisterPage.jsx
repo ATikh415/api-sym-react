@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Field from '../components/form/Field';
 import Create from '../services/UserApi';
 
 
 const Register = ({history}) => {
 
-    const [user, setUser] = useState(
+    const [user, setUser] = useState( 
         {
             firstName: "",
             lastName: "",
@@ -34,7 +35,6 @@ const Register = ({history}) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        await Create()
         const apiErrors = {}
 
         if(user.password !== user.passwordConfirm){
@@ -45,8 +45,10 @@ const Register = ({history}) => {
         }
 
         try {
-            
+            await Create()
             setErrors({})
+            //toast
+            toast.success("Vous etes inscrit, vous pouvez vous connceter !")
             history.replace("/login")
         } catch (e) {
             const {violations} = e.response.data
@@ -58,6 +60,7 @@ const Register = ({history}) => {
                 })
                 setErrors(apiErrors)
             }
+            toast.error("Des erreurs dans botre formulaire")
         }
     }
 

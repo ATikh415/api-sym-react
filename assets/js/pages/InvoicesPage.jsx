@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import Pagination from '../components/Pagination';
 import { Link } from 'react-router-dom';
+import TableLoader from '../components/loaders/TableLoader';
 
 
 const InvoicesPage = (props) => {
@@ -22,16 +23,17 @@ const InvoicesPage = (props) => {
     const [invoices, setInvoices] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [search, setSearch] = useState("")
+    const [loading, setLoading] = useState(true)
 
     const fetchInvoices = async () => {
         try{
             const data = await axios
             .get("http://localhost:8000/api/invoices")
             .then(response => response.data["hydra:member"])
-            
+            setLoading(false)
             setInvoices(data)
         } catch (error) {
-            console.log(error.response)
+            toast.error("Erreurs lors de du chargement des factues")
         }
     }
 
@@ -95,7 +97,7 @@ const InvoicesPage = (props) => {
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                {!loading && <tbody>
                     {invoicesPaginated.map(invoice => 
                         <tr key={invoice.id}>
                             <td>{invoice.id}</td>
@@ -115,8 +117,10 @@ const InvoicesPage = (props) => {
                             </td>
                         </tr>    
                     )}
-                </tbody>
+                </tbody> } 
             </table>
+
+            {loading && <TableLoader />}
 
             <Pagination itemPerPage={itemPerPage} currentPage={currentPage} OnPageChange={handlePageChange} length={invoices.length} />
         </>

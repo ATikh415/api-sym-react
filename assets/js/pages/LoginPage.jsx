@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import Field from '../components/form/Field';
 import { Authenticate } from '../services/AuthApi';
 
@@ -22,10 +23,12 @@ const Login = ({ onLogin, history }) => {
             await Authenticate(credentials)
             setError("")
             onLogin(true)
+            toast.success("Vous etes connecté !")
             history.replace("/customers")
 
         } catch (error) {
             setError("Email ou mot de passe invalide !")
+            toast.error("Une erreur est survenue")
         }
 
     }
@@ -47,6 +50,7 @@ const Login = ({ onLogin, history }) => {
                 <Field 
                     name="password"
                     label="Mot de passe"
+                    type="password"
                     value={credentials.value}
                     onChange={handleChange}
 

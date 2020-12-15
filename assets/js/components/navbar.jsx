@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Logout } from '../services/AuthApi';
 
 export function Navbar ({ isAuthenticated, onLogout, history }){
@@ -7,6 +8,7 @@ export function Navbar ({ isAuthenticated, onLogout, history }){
     const handleLogout = () => {
         Logout()
         onLogout(false)
+        toast.info("vous etes deconnecté !!")
         history.push('/login')
     }
 

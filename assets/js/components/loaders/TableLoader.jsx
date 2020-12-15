@@ -1,5 +1,5 @@
 import React from 'react'
-import ContentLoader from 'react-content-loader'
+import ContentLoader from 'react-content-loader';
 
 const TableRow = props => {
   const random = Math.random() * (1 - 0.7) + 0.7

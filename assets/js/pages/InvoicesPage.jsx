@@ -4,6 +4,7 @@ import moment from 'moment';
 import Pagination from '../components/Pagination';
 import { Link } from 'react-router-dom';
 import TableLoader from '../components/loaders/TableLoader';
+import { INVOIVES_API } from '../services/config';
 
 
 const InvoicesPage = (props) => {
@@ -28,7 +29,7 @@ const InvoicesPage = (props) => {
     const fetchInvoices = async () => {
         try{
             const data = await axios
-            .get("http://localhost:8000/api/invoices")
+            .get(INVOIVES_API)
             .then(response => response.data["hydra:member"])
             setLoading(false)
             setInvoices(data)
@@ -102,7 +103,7 @@ const InvoicesPage = (props) => {
                         <tr key={invoice.id}>
                             <td>{invoice.id}</td>
                             <td>
-                                <a href="">{invoice.customer.firstname} {invoice.customer.lastname}</a> 
+                                <Link to={"invoices/" + invoice.id}>{invoice.customer.firstname} {invoice.customer.lastname}</Link> 
                             </td>
                             <td className="text-center">{formatDate(invoice.sentAt)}</td>
                             <td className="text-center">

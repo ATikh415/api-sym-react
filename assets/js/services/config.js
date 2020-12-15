@@ -1,6 +1,6 @@
-export const API_URL = "http://localhost:8000/api";
+export const API_URL = process.env.API_URL;
 
-export const CUSTOMERS_API = "http://localhost:8000/api/customers"
-export const INVOIVES_API = "http://localhost:8000/api/invoices"
-export const USERS_API = "http://localhost:8000/api/users"
-export const LOGIN_API = "http://localhost:8000/api/login_check"
+export const CUSTOMERS_API = API_URL + "customers"
+export const INVOIVES_API =  API_URL + "invoices"
+export const USERS_API =  API_URL + "users"
+export const LOGIN_API =  API_URL + "login_check"

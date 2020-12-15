@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from "axios";
 import jwtDecode from 'jwt-decode';
+import { LOGIN_API } from './config';
+
 
 
 export function Logout(){

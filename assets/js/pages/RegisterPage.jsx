@@ -45,7 +45,7 @@ const Register = ({history}) => {
         }
 
         try {
-            await Create()
+            await Create(user)
             setErrors({})
             //toast
             toast.success("Vous etes inscrit, vous pouvez vous connceter !")
@@ -60,7 +60,7 @@ const Register = ({history}) => {
                 })
                 setErrors(apiErrors)
             }
-            toast.error("Des erreurs dans botre formulaire")
+            toast.error("Des erreurs dans votre formulaire")
         }
     }
 

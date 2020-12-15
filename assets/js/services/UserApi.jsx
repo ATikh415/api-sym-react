@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { USERS_API } from './config';
 
-const Create = () => {
+const Create = (user) => {
     return axios.post(USERS_API, user)
 }
  
